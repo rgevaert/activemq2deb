@@ -1,6 +1,9 @@
 #!/bin/bash
 
-VERSION=5.6.0
+VERSION=$1
+
+[ -z $VERSION ] && echo Usage: $0 X.Y.Z && exit 1
+
 TGZ=`pwd`/apache-activemq-$VERSION-bin.tar.gz
 BN=`basename $TGZ -bin.tar.gz`
 
