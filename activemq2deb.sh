@@ -12,9 +12,8 @@ then
   wget "http://www.apache.org/dyn/closer.cgi?path=/activemq/apache-activemq/${VERSION}/apache-activemq-${VERSION}-bin.tar.gz"
 fi
 
-pushd .
+pushd . > /dev/null
 TMPDIR=`mktemp -d`
-echo $TMPDIR
 cd $TMPDIR
 tar -xzf ${TGZ}
 mkdir -p etc \
@@ -53,7 +52,7 @@ ln -s /usr/share/activemq/bin/activemq-admin usr/bin/activemq-admin
 
 echo "This deb was generated from ${BN}" > usr/share/doc/activemq/README.Debian
 
-popd
+popd >/dev/null
 
 cp init $TMPDIR/etc/init.d/activemq
 chmod 755 $TMPDIR/etc/init.d/activemq
