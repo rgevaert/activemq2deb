@@ -1,0 +1,4 @@
+Use activemq2deb to create a debian package from activemq.
+
+It depends on fpm (https://github.com/jordansissel/fpm)
+
