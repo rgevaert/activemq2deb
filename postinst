@@ -1,0 +1,41 @@
+#!/bin/sh
+
+set -e
+
+if [ "$1" = "configure" ]; then
+
+        # Create the "activemq" user
+        if ! getent passwd activemq > /dev/null; then
+                adduser --quiet --system --group --home /var/lib/activemq  \
+                        --no-create-home                                 \
+                        --gecos "Apache ActiveMQ Messageing Queue" \
+                        activemq
+        fi
+
+        # Set correct permissions and ownership for activemq directories
+        if ! dpkg-statoverride --list /var/log/activemq >/dev/null 2>&1; then
+                dpkg-statoverride --update --add activemq activemq 0750 /var/log/activemq
+        fi
+
+        if ! dpkg-statoverride --list /var/lib/activemq >/dev/null 2>&1; then
+                dpkg-statoverride --update --add activemq activemq 0750 /var/lib/activemq
+        fi
+
+        if ! dpkg-statoverride --list /var/lib/activemq/data >/dev/null 2>&1; then
+                dpkg-statoverride --update --add activemq activemq 0750 /var/lib/activemq/data
+        fi
+
+        if ! dpkg-statoverride --list /var/lib/activemq/activemq-data >/dev/null 2>&1; then
+                dpkg-statoverride --update --add activemq activemq 0750 /var/lib/activemq/activemq-data
+        fi
+
+        if ! dpkg-statoverride --list /var/run/activemq >/dev/null 2>&1; then
+                dpkg-statoverride --update --add activemq activemq 0750 /var/run/activemq
+        fi
+fi
+
+if [ -x "/etc/init.d/activemq" ]; then
+        update-rc.d activemq defaults 21 >/dev/null
+        invoke-rc.d activemq start || true
+
+fi

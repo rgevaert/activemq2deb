@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -e
+
+if [ -x "/etc/init.d/activemq" ] && [ "$1" = remove ]; then
+        if [ -x "`which invoke-rc.d 2>/dev/null`" ]; then
+                invoke-rc.d activemq stop || exit $?
+        else
+                /etc/init.d/activemq stop || exit $?
+        fi
+fi

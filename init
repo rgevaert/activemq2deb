@@ -1,0 +1,37 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          Apache ActiveMQ
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Apache ActiveMQ Messageing Queue
+# Description:       Manages the Apache ActiveMQ messaging queue java daemon
+### END INIT INFO
+
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
+DESC="Apache Messaging Queue"
+NAME=activemq
+ACTIVEMQ_HOME=/usr/share/activemq
+ACTIVEMQ_SCRIPT=$ACTIVEMQ_HOME/bin/activemq
+ACTIVEMQ_CONF=/etc/activemq
+ACTIVEMQ_USER=activemq
+ACTIVEMQ_TMP=/tmp
+ACTIVEMQ_DATA=/var/lib/activemq/data
+ACTIVEMQ_PIDFILE="/var/run/activemq/activemq-`hostname`.pid"
+
+# Exit if the package is not installed
+[ -x "$ACTIVEMQ_SCRIPT" ] || exit 0
+
+. /lib/init/vars.sh
+. /lib/lsb/init-functions
+
+export ACTIVEMQ_HOME
+export ACTIVEMQ_SCRIPT
+export ACTIVEMQ_CONF
+export ACTIVEMQ_USER
+export ACTIVEMQ_TMP
+export ACTIVEMQ_DATA
+export ACTIVEMQ_PIDFILE
+
+$ACTIVEMQ_SCRIPT $1
