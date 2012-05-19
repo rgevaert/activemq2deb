@@ -6,7 +6,7 @@ if [ "$1" = "configure" ]; then
 
         # Create the "activemq" user
         if ! getent passwd activemq > /dev/null; then
-                adduser --quiet --system --group --home /var/lib/activemq  \
+                adduser --quiet --system --shell /bin/bash --group --home /var/lib/activemq  \
                         --no-create-home                                 \
                         --gecos "Apache ActiveMQ Messageing Queue" \
                         activemq
