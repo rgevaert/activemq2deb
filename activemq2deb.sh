@@ -26,7 +26,7 @@ mkdir -p etc \
   var/log/activemq \
   etc/init.d
 
-mv apache-activemq-5.6.0 usr/share/activemq
+mv apache-activemq-$VERSION usr/share/activemq
 
 mv usr/share/activemq/data var/lib/activemq/data
 ln -s /var/lib/activemq/data usr/share/activemq/data
