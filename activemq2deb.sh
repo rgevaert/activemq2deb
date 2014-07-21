@@ -64,9 +64,9 @@ fpm -s dir -t deb \
   -m 'Rudy Gevaert <Rudy.Gevaert@UGent.be>' \
   --description "Activemq $VERSION" \
   --url 'http://activemq.apache.org/' \
-  --post-install postinst \
-  --pre-uninstall prerm \
-  --post-uninstall postrm \
+  --after-install postinst \
+  --before-remove prerm \
+  --after-remove postrm \
   --config-files etc/activemq/activemq.xml \
   --config-files etc/activemq/log4j.properties \
   .
