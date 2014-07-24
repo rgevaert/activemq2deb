@@ -2,10 +2,18 @@
 
 set -e
 
-if [ -x "/etc/init.d/activemq" ] && [ "$1" = remove ]; then
-        if [ -x "`which invoke-rc.d 2>/dev/null`" ]; then
-                invoke-rc.d activemq stop || exit $?
-        else
-                /etc/init.d/activemq stop || exit $?
-        fi
+if [ -x "/etc/init.d/activemq" ]; then
+	case "$1" in
+		remove|upgrade|deconfigure)
+		        if [ -x "`which invoke-rc.d 2>/dev/null`" ]; then
+				invoke-rc.d activemq stop || exit $?
+        		else
+                		/etc/init.d/activemq stop || exit $?
+        		fi
+		;;
+		*)
+			echo "prerm called with unknown argument \`$1'" >&2
+			exit 1
+		;;
+	esac
 fi

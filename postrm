@@ -2,4 +2,4 @@
 
 set -e
 
-update-rc.d activemq remove >/dev/null
+update-rc.d -f activemq remove >/dev/null

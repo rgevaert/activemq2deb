@@ -26,7 +26,7 @@ mkdir -p etc \
   var/log/activemq \
   etc/init.d
 
-mv apache-activemq-5.6.0 usr/share/activemq
+mv apache-activemq-$VERSION usr/share/activemq
 
 mv usr/share/activemq/data var/lib/activemq/data
 ln -s /var/lib/activemq/data usr/share/activemq/data
@@ -60,13 +60,13 @@ chmod 755 $TMPDIR/etc/init.d/activemq
 fpm -s dir -t deb \
   -n activemq -v $VERSION -a all \
   -C $TMPDIR \
-  -d openjdk-6-jre-headless \
+  -d java6-sdk \
   -m 'Rudy Gevaert <Rudy.Gevaert@UGent.be>' \
   --description "Activemq $VERSION" \
   --url 'http://activemq.apache.org/' \
-  --post-install postinst \
-  --pre-uninstall prerm \
-  --post-uninstall postrm \
+  --after-install postinst \
+  --before-remove prerm \
+  --after-remove postrm \
   --config-files etc/activemq/activemq.xml \
   --config-files etc/activemq/log4j.properties \
   .

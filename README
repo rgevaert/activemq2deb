@@ -2,3 +2,4 @@ Use activemq2deb to create a debian package from activemq.
 
 It depends on fpm (https://github.com/jordansissel/fpm)
 
+To execute, run `./activemq2deb 5.10.0` where 5.10.0 is the version number of ActiveMQ. If not downloaded to the current directory already, curl will seek to download it from an http mirror.
