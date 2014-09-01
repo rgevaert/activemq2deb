@@ -1,15 +1,16 @@
 #!/bin/bash
 
 VERSION=$1
+ITERATION=$2
 
-[ -z $VERSION ] && echo Usage: $0 X.Y.Z && exit 1
+[ -z $VERSION ] || [ -z $ITERATION ] && echo Usage: $0 X.Y.Z ITERATION && exit 1
 
 TGZ=`pwd`/apache-activemq-$VERSION-bin.tar.gz
 BN=`basename $TGZ -bin.tar.gz`
 
 if [ ! -e $TGZ  ]
 then
-  wget "http://www.apache.org/dyn/closer.cgi?path=/activemq/apache-activemq/${VERSION}/apache-activemq-${VERSION}-bin.tar.gz"
+  wget "http://www.eu.apache.org/dist/activemq/${VERSION}/apache-activemq-${VERSION}-bin.tar.gz"
 fi
 
 pushd . > /dev/null
@@ -58,7 +59,7 @@ cp init $TMPDIR/etc/init.d/activemq
 chmod 755 $TMPDIR/etc/init.d/activemq
 
 fpm -s dir -t deb \
-  -n activemq -v $VERSION -a all \
+  -n activemq -v $VERSION --iteration $ITERATION -a all \
   -C $TMPDIR \
   -d java6-sdk \
   -m 'Rudy Gevaert <Rudy.Gevaert@UGent.be>' \
@@ -72,4 +73,3 @@ fpm -s dir -t deb \
   .
 
 rm -fr $TMPDIR
-
