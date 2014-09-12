@@ -18,10 +18,12 @@ ACTIVEMQ_CONF=/etc/activemq
 ACTIVEMQ_USER=activemq
 ACTIVEMQ_TMP=/tmp
 ACTIVEMQ_DATA=/var/lib/activemq/data
-ACTIVEMQ_PIDFILE="/var/run/activemq/activemq-`hostname`.pid"
+ACTIVEMQ_PID=/var/run/activemq
+ACTIVEMQ_PIDFILE="$ACTIVEMQ_PID/activemq-`hostname`.pid"
 
 # Exit if the package is not installed
 [ -x "$ACTIVEMQ_SCRIPT" ] || exit 0
+[ -d $ACTIVEMQ_PID ] || install -m 755 -o $ACTIVEMQ_USER -g root -d $ACTIVEMQ_PID
 
 . /lib/init/vars.sh
 . /lib/lsb/init-functions
